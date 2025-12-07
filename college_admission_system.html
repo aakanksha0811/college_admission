@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Siddheshwar Women's College - Admission System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: calc(100vh - 140px);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .logo span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info span {
+            margin-right: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .status-accepted {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .status-rejected {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .status-sentback {
+            background-color: #9b59b6;
+            color: white;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 10px;
+        }
+
+        .quick-links a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .quick-links a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--secondary);
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .step.active .step-circle {
+            background-color: var(--secondary);
+        }
+
+        .step.completed .step-circle {
+            background-color: var(--success);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            background-color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-buttons button {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+
+        .application-success {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .application-success h2 {
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .status-history {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .status-history h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .status-item {
+            padding: 8px;
+            border-left: 3px solid var(--secondary);
+            margin-bottom: 8px;
+            background-color: white;
+        }
+
+        .status-item.rejected {
+            border-left-color: var(--danger);
+        }
+
+        .status-item.accepted {
+            border-left-color: var(--success);
+        }
+
+        .status-item.sentback {
+            border-left-color: #9b59b6;
+        }
+
+        .application-tracker {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .application-tracker h3 {
+            margin-bottom: 15px;
+        }
+
+        .tracker-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tracker-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .application-list {
+            margin-top: 20px;
+        }
+
+        .application-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--warning);
+        }
+
+        .application-card.accepted {
+            border-left-color: var(--success);
+        }
+
+        .application-card.rejected {
+            border-left-color: var(--danger);
+        }
+
+        .application-card.sentback {
+            border-left-color: #9b59b6;
+        }
+
+        .app-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .app-card-id {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .app-card-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .admin-review-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .admin-review-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-data {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .review-data p {
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review-data strong {
+            color: var(--primary);
+            min-width: 150px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>Shree Siddheshwar <span>WOMEN'S COLLEGE OF ENGINEERING</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" id="nav-home">Home</a></li>
+                    <li><a href="#" id="nav-dashboard" class="hidden">Dashboard</a></li>
+                    <li><a href="#" id="nav-admin" class="hidden">Admin</a></li>
+                    <li><a href="#" id="nav-track" class="hidden">Track Application</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <span id="user-name" class="hidden"></span>
+                <a href="#" class="btn btn-danger hidden" id="logout-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Login Page -->
+        <div id="login-page">
+            <div class="login-container">
+                <h1>Student Portal</h1>
+                <p style="text-align: center; margin-bottom: 20px;">Enter your credentials to access your account</p>
+                
+                <div class="tabs">
+                    <div class="tab active" id="student-tab">Student</div>
+                    <div class="tab" id="admin-tab">Admin</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="student@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+                </div>
+                
+                <button class="btn" style="width: 100%;" id="login-btn">Login</button>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    Don't have an account? <a href="#" id="signup-link">Sign up</a>
+                </p>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="#" id="track-application-link">Track your application without login</a>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
+                    <p style="font-size: 0.8rem; margin: 0;">Demo Credentials:</p>
+                    <p style="font-size: 0.8rem; margin: 5px 0;">Admin: admin@sswcoe.edu.in / sswcoe123</p>
+                    <p style="font-size: 0.8rem; margin: 0;">Student: student@test.com / student123</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Page -->
+        <div id="signup-page" class="hidden">
+            <div class="login-container">
+                <h1>Student Registration</h1>
+                <p style="text-align: center; margin-bottom: 20px;">Create a new account to get started</p>
+                
+                <div class="tabs">
+                    <div class="tab active">Student</div>
+                    <div class="tab">Admin</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-contact">Contact No.</label>
+                    <input type="text" id="signup-contact" class="form-control" placeholder="+91 9876543210">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" class="form-control" placeholder="student@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
+                </div>
+                
+                <button class="btn" style="width: 100%;" id="signup-btn">Create Account</button>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    Already have an account? <a href="#" id="login-link">Login</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="student-dashboard" class="hidden">
+            <div class="card">
+                <h1>Student Dashboard</h1>
+                <p>Welcome back, <span id="student-name">Student</span></p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div>
+                    <div class="card">
+                        <h2>Application Status</h2>
+                        <p>Track your admission application progress</p>
+                        
+                        <div id="no-application">
+                            <h3>No Application Found</h3>
+                            <p>You haven't submitted an admission application yet. Start your journey with Shree Siddeshwar Women's College today.</p>
+                            <button class="btn" id="start-application-btn">Start New Admission</button>
+                        </div>
+                        
+                        <div id="application-status" class="hidden">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <h3>Application ID</h3>
+                                    <p id="student-app-id">APP-9663</p>
+                                </div>
+                                <div class="form-col">
+                                    <h3>Current Status</h3>
+                                    <p><span class="status" id="application-status-text">Pending</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <h3>Department</h3>
+                                    <p id="application-dept">Computer Science Engineering</p>
+                                </div>
+                                <div class="form-col">
+                                    <h3>Year</h3>
+                                    <p id="application-year">First Year</p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <h3>Admission Type</h3>
+                                    <p id="application-admission-type">ACAP</p>
+                                </div>
+                                <div class="form-col">
+                                    <h3>Submitted On</h3>
+                                    <p id="application-date">12/12/2025</p>
+                                </div>
+                            </div>
+
+                            <!-- Status History -->
+                            <div class="status-history" id="status-history">
+                                <h4>Status History</h4>
+                                <div id="status-history-items">
+                                    <!-- Status history will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Application History -->
+                    <div class="card application-list hidden" id="application-history">
+                        <h2>Your Applications</h2>
+                        <div id="applications-list">
+                            <!-- Applications will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="card">
+                        <h2>Quick Links</h2>
+                        <ul class="quick-links">
+                            <li><a href="#" id="quick-track">Track Application</a></li>
+                            <li><a href="#">Download Prospectus</a></li>
+                            <li><a href="#">Fee Structure</a></li>
+                            <li><a href="#">Contact Support</a></li>
+                            <li><a href="#">College Website</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Application Page -->
+        <div id="track-application-page" class="hidden">
+            <div class="card">
+                <h1>Track Your Application</h1>
+                <p>Check the status of your admission application using your Application ID</p>
+                
+                <div class="application-tracker">
+                    <h3>Find Your Application Status</h3>
+                    <div class="tracker-form">
+                        <input type="text" id="track-app-id" class="form-control" placeholder="Enter your Application ID (e.g., APP-1001)">
+                        <button class="btn" id="track-app-btn">Track Application</button>
+                    </div>
+                </div>
+
+                <div id="tracked-application" class="hidden">
+                    <div class="card">
+                        <h2>Application Details</h2>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <h3>Application ID</h3>
+                                <p id="tracked-app-id">APP-1001</p>
+                            </div>
+                            <div class="form-col">
+                                <h3>Current Status</h3>
+                                <p><span class="status" id="tracked-app-status">Pending</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <h3>Student Name</h3>
+                                <p id="tracked-app-name">Priya Sharma</p>
+                            </div>
+                            <div class="form-col">
+                                <h3>Department</h3>
+                                <p id="tracked-app-dept">Computer Science Engineering</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <h3>Admission Type</h3>
+                                <p id="tracked-app-admission-type">ACAP</p>
+                            </div>
+                            <div class="form-col">
+                                <h3>Submitted On</h3>
+                                <p id="tracked-app-date">15/12/2025</p>
+                            </div>
+                        </div>
+
+                        <!-- Status History -->
+                        <div class="status-history">
+                            <h4>Status History</h4>
+                            <div id="tracked-status-history">
+                                <!-- Status history will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="no-tracked-application" class="hidden">
+                    <div class="alert alert-info">
+                        <h3>Application Not Found</h3>
+                        <p>No application found with the provided Application ID. Please check your ID and try again.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="hidden">
+            <div class="card">
+                <h1>Admin Portal</h1>
+                <p>Manage admission applications</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <p>Total Forms</p>
+                    <h3 id="total-forms">0</h3>
+                </div>
+                <div class="stat-card">
+                    <p>Pending</p>
+                    <h3 id="pending-forms">0</h3>
+                </div>
+                <div class="stat-card">
+                    <p>Accepted</p>
+                    <h3 id="accepted-forms">0</h3>
+                </div>
+                <div class="stat-card">
+                    <p>Rejected</p>
+                    <h3 id="rejected-forms">0</h3>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Recent Applications</h2>
+                <p>Review and manage student submissions</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>App ID</th>
+                            <th>Student Name</th>
+                            <th>Department</th>
+                            <th>Admission Type</th>
+                            <th>Year</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applications-table-body">
+                        <!-- Applications will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Application Form -->
+        <div id="application-form" class="hidden">
+            <div class="card">
+                <h1>Admission Application</h1>
+                
+                <div class="form-steps">
+                    <div class="step active" data-step="dept">
+                        <div class="step-circle">1</div>
+                        <div class="step-label">Dept</div>
+                    </div>
+                    <div class="step" data-step="personal">
+                        <div class="step-circle">2</div>
+                        <div class="step-label">Personal</div>
+                    </div>
+                    <div class="step" data-step="category">
+                        <div class="step-circle">3</div>
+                        <div class="step-label">Category</div>
+                    </div>
+                    <div class="step" data-step="bank">
+                        <div class="step-circle">4</div>
+                        <div class="step-label">Bank</div>
+                    </div>
+                    <div class="step" data-step="guardian">
+                        <div class="step-circle">5</div>
+                        <div class="step-label">Guardian</div>
+                    </div>
+                    <div class="step" data-step="docs">
+                        <div class="step-circle">6</div>
+                        <div class="step-label">Docs</div>
+                    </div>
+                    <div class="step" data-step="review">
+                        <div class="step-circle">7</div>
+                        <div class="step-label">Review</div>
+                    </div>
+                </div>
+                
+                <!-- Department Selection -->
+                <div class="form-section active" id="section-dept">
+                    <h2>Select Department & Year</h2>
+                    
+                    <div class="form-group">
+                        <label for="department">Department Choice</label>
+                        <select id="department" class="form-control">
+                            <option value="">Select Department</option>
+                            <option value="cse">Computer Science Engineering</option>
+                            <option value="cse-aids">CSE (AI & DS)</option>
+                            <option value="entc">EnTC</option>
+                            <option value="ece">ECE</option>
+                            <option value="electrical">Electrical</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <select id="year" class="form-control">
+                            <option value="">Select Year</option>
+                            <option value="fy">First Year</option>
+                            <option value="sy">Second Year</option>
+                            <option value="ty">Third Year</option>
+                            <option value="final">Final Year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admission-type">Admission Type</label>
+                        <select id="admission-type" class="form-control">
+                            <option value="">Select Admission Type</option>
+                            <option value="acap">ACAP</option>
+                            <option value="cap">CAP</option>
+                            <option value="tfws">TFWS</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" disabled>Previous</button>
+                        <button class="btn" id="next-dept">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Personal Information -->
+                <div class="form-section" id="section-personal">
+                    <h2>Basic Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="father-name">Father's Name</label>
+                                <input type="text" id="father-name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="mother-name">Mother's Name</label>
+                                <input type="text" id="mother-name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="birth-place">Birth Place</label>
+                                <input type="text" id="birth-place" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="aadhar">Aadhar No.</label>
+                                <input type="text" id="aadhar" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="permanent-address">Permanent Address</label>
+                        <textarea id="permanent-address" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pincode">Pin Code</label>
+                        <input type="text" id="pincode" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correspondence-address">Correspondence Address</label>
+                        <textarea id="correspondence-address" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="corr-pincode">Pin Code</label>
+                        <input type="text" id="corr-pincode" class="form-control">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-personal">Previous</button>
+                        <button class="btn" id="next-personal">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Category & Domicile -->
+                <div class="form-section" id="section-category">
+                    <h2>Category & Domicile</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="domicile-state">Domicile State</label>
+                                <input type="text" id="domicile-state" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <div>
+                                    <input type="radio" id="category-open" name="category" value="open">
+                                    <label for="category-open" style="display: inline; margin-right: 15px;">Open</label>
+                                    
+                                    <input type="radio" id="category-reserved" name="category" value="reserved">
+                                    <label for="category-reserved" style="display: inline;">Reserved</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="religion">Religion</label>
+                                <input type="text" id="religion" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="caste">Caste</label>
+                                <input type="text" id="caste" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sub-caste">Sub-Caste (Optional)</label>
+                        <input type="text" id="sub-caste" class="form-control">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-category">Previous</button>
+                        <button class="btn" id="next-category">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Bank Details -->
+                <div class="form-section" id="section-bank">
+                    <h2>Bank Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="account-holder">Account Holder Name</label>
+                        <input type="text" id="account-holder" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bank-name">Bank Name</label>
+                        <input type="text" id="bank-name" class="form-control">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="branch">Branch</label>
+                                <input type="text" id="branch" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="ifsc">IFSC Code</label>
+                                <input type="text" id="ifsc" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="account-no">Account No.</label>
+                        <input type="text" id="account-no" class="form-control">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-bank">Previous</button>
+                        <button class="btn" id="next-bank">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Guardian Information -->
+                <div class="form-section" id="section-guardian">
+                    <h2>Guardian Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="guardian-name">Guardian Name</label>
+                        <input type="text" id="guardian-name" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guardian-relation">Relation</label>
+                        <input type="text" id="guardian-relation" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guardian-occupation">Occupation</label>
+                        <input type="text" id="guardian-occupation" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guardian-income">Annual Income</label>
+                        <input type="text" id="guardian-income" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guardian-contact">Contact No.</label>
+                        <input type="text" id="guardian-contact" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guardian-email">Email</label>
+                        <input type="email" id="guardian-email" class="form-control">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-guardian">Previous</button>
+                        <button class="btn" id="next-guardian">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Documents -->
+                <div class="form-section" id="section-docs">
+                    <h2>Documents Upload</h2>
+                    
+                    <div class="form-group">
+                        <label for="photo">Passport Size Photo</label>
+                        <input type="file" id="photo" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signature">Signature</label>
+                        <input type="file" id="signature" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aadhar-doc">Aadhar Card</label>
+                        <input type="file" id="aadhar-doc" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="marksheet">10th Marksheet</label>
+                        <input type="file" id="marksheet" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="leaving-certificate">Leaving Certificate</label>
+                        <input type="file" id="leaving-certificate" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="caste-certificate">Caste Certificate (if applicable)</label>
+                        <input type="file" id="caste-certificate" class="form-control">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-docs">Previous</button>
+                        <button class="btn" id="next-docs">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Review -->
+                <div class="form-section" id="section-review">
+                    <h2>Review Application</h2>
+                    <p>Please verify all details before final submission.</p>
+                    
+                    <div class="card">
+                        <h3>Academic Details</h3>
+                        <p><strong>Department:</strong> <span id="review-dept"></span></p>
+                        <p><strong>Year:</strong> <span id="review-year"></span></p>
+                        <p><strong>Admission Type:</strong> <span id="review-admission-type"></span></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Personal Details</h3>
+                        <p><strong>Name:</strong> <span id="review-name"></span></p>
+                        <p><strong>Email:</strong> <span id="review-email"></span></p>
+                        <p><strong>Date of Birth:</strong> <span id="review-dob"></span></p>
+                        <p><strong>Category:</strong> <span id="review-category"></span></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Bank Details</h3>
+                        <p><strong>Bank:</strong> <span id="review-bank"></span></p>
+                        <p><strong>A/C No:</strong> <span id="review-account"></span></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Documents</h3>
+                        <p><strong>Uploaded:</strong> All required documents</p>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn" id="prev-review">Previous</button>
+                        <button class="btn" id="submit-application">Submit Application</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Success Message -->
+        <div id="application-success" class="hidden">
+            <div class="card application-success">
+                <h2>Application Submitted Successfully!</h2>
+                <p>Your admission form has been successfully submitted for review.</p>
+                <p>Your Application ID: <strong id="success-app-id">APP-9663</strong></p>
+                <p style="color: #e74c3c; font-weight: bold; margin: 15px 0;">
+                    ⚠️ Important: Save your Application ID to track your application status later!
+                </p>
+                <div class="form-actions" style="justify-content: center;">
+                    <button class="btn" id="back-to-dashboard">Back to Dashboard</button>
+                    <button class="btn btn-success" id="track-now-btn">Track Application Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Review Form -->
+        <div id="admin-review-form" class="hidden">
+            <div class="card">
+                <h1>Application Review</h1>
+                <p>Review student application details</p>
+                
+                <div class="admin-review-section">
+                    <h3>📋 Application Information</h3>
+                    <div class="review-data" id="review-app-info">
+                        <!-- Application info will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>🎓 Academic Details</h3>
+                    <div class="review-data" id="review-academic">
+                        <!-- Academic details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>👤 Personal Information</h3>
+                    <div class="review-data" id="review-personal">
+                        <!-- Personal details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>🏠 Address Details</h3>
+                    <div class="review-data" id="review-address">
+                        <!-- Address details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>📊 Category & Domicile</h3>
+                    <div class="review-data" id="review-category-domicile">
+                        <!-- Category details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>🏦 Bank Details</h3>
+                    <div class="review-data" id="review-bank">
+                        <!-- Bank details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>👨‍👩‍👧 Guardian Information</h3>
+                    <div class="review-data" id="review-guardian">
+                        <!-- Guardian details will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-review-section">
+                    <h3>📄 Documents</h3>
+                    <div class="review-data">
+                        <p><strong>Passport Photo:</strong> Uploaded</p>
+                        <p><strong>Signature:</strong> Uploaded</p>
+                        <p><strong>Aadhar Card:</strong> Uploaded</p>
+                        <p><strong>10th Marksheet:</strong> Uploaded</p>
+                        <p><strong>Leaving Certificate:</strong> Uploaded</p>
+                        <p><strong>Caste Certificate:</strong> Not Applicable</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" id="back-to-admin">Back to Admin Dashboard</button>
+                    <button class="btn btn-success" id="accept-application">Accept Application</button>
+                    <button class="btn btn-danger" id="reject-application">Reject Application</button>
+                    <button class="btn btn-warning" id="sendback-application">Send Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Status Modal -->
+    <div class="modal" id="status-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Application Status</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="status-select">Select Status</label>
+                <select id="status-select" class="form-control">
+                    <option value="pending">Pending</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="sentback">Send Back</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status-comments">Comments (Optional)</label>
+                <textarea id="status-comments" class="form-control" rows="3" placeholder="Add any comments for the student"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="cancel-status">Cancel</button>
+                <button class="btn btn-success" id="update-status">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Shree Siddheshwar Women's College Of Engineering Solapur. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Page elements
+        const loginPage = document.getElementById('login-page');
+        const signupPage = document.getElementById('signup-page');
+        const studentDashboard = document.getElementById('student-dashboard');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const applicationForm = document.getElementById('application-form');
+        const applicationSuccess = document.getElementById('application-success');
+        const trackApplicationPage = document.getElementById('track-application-page');
+        const adminReviewForm = document.getElementById('admin-review-form');
+        const statusModal = document.getElementById('status-modal');
+        
+        // Login/Signup elements
+        const studentTab = document.getElementById('student-tab');
+        const adminTab = document.getElementById('admin-tab');
+        const loginBtn = document.getElementById('login-btn');
+        const signupLink = document.getElementById('signup-link');
+        const loginLink = document.getElementById('login-link');
+        const signupBtn = document.getElementById('signup-btn');
+        const trackApplicationLink = document.getElementById('track-application-link');
+        const quickTrackLink = document.getElementById('quick-track');
+        const navTrack = document.getElementById('nav-track');
+        
+        // Navigation elements
+        const navHome = document.getElementById('nav-home');
+        const navDashboard = document.getElementById('nav-dashboard');
+        const navAdmin = document.getElementById('nav-admin');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userName = document.getElementById('user-name');
+        
+        // Application elements
+        const noApplication = document.getElementById('no-application');
+        const applicationStatus = document.getElementById('application-status');
+        const startApplicationBtn = document.getElementById('start-application-btn');
+        const backToDashboardBtn = document.getElementById('back-to-dashboard');
+        const trackNowBtn = document.getElementById('track-now-btn');
+        const backToAdminBtn = document.getElementById('back-to-admin');
+        
+        // Track application elements
+        const trackAppBtn = document.getElementById('track-app-btn');
+        const trackAppId = document.getElementById('track-app-id');
+        const trackedApplication = document.getElementById('tracked-application');
+        const noTrackedApplication = document.getElementById('no-tracked-application');
+        
+        // Form navigation
+        const formSections = document.querySelectorAll('.form-section');
+        const steps = document.querySelectorAll('.step');
+        
+        // Review elements
+        const reviewDept = document.getElementById('review-dept');
+        const reviewYear = document.getElementById('review-year');
+        const reviewAdmissionType = document.getElementById('review-admission-type');
+        const reviewName = document.getElementById('review-name');
+        const reviewEmail = document.getElementById('review-email');
+        const reviewDob = document.getElementById('review-dob');
+        const reviewCategory = document.getElementById('review-category');
+        const reviewBank = document.getElementById('review-bank');
+        const reviewAccount = document.getElementById('review-account');
+        
+        // Application submission
+        const submitApplicationBtn = document.getElementById('submit-application');
+        
+        // Admin elements
+        const applicationsTableBody = document.getElementById('applications-table-body');
+        const totalFormsEl = document.getElementById('total-forms');
+        const pendingFormsEl = document.getElementById('pending-forms');
+        const acceptedFormsEl = document.getElementById('accepted-forms');
+        const rejectedFormsEl = document.getElementById('rejected-forms');
+        
+        // Student application history
+        const applicationHistory = document.getElementById('application-history');
+        const applicationsList = document.getElementById('applications-list');
+        
+        // Admin review elements
+        const reviewAppInfo = document.getElementById('review-app-info');
+        const reviewAcademic = document.getElementById('review-academic');
+        const reviewPersonal = document.getElementById('review-personal');
+        const reviewAddress = document.getElementById('review-address');
+        const reviewCategoryDomicile = document.getElementById('review-category-domicile');
+        const reviewBankDetails = document.getElementById('review-bank');
+        const reviewGuardian = document.getElementById('review-guardian');
+        const acceptApplicationBtn = document.getElementById('accept-application');
+        const rejectApplicationBtn = document.getElementById('reject-application');
+        const sendbackApplicationBtn = document.getElementById('sendback-application');
+        
+        // Modal elements
+        const closeModalBtn = document.getElementById('close-modal');
+        const cancelStatusBtn = document.getElementById('cancel-status');
+        const updateStatusBtn = document.getElementById('update-status');
+        const statusSelect = document.getElementById('status-select');
+        const statusComments = document.getElementById('status-comments');
+        
+        // Current user state
+        let currentUser = null;
+        let userType = null;
+        let applicationData = {};
+        let currentStep = 0;
+        let currentApplications = [];
+        let currentApplicationId = null;
+        let registeredUsers = [];
+        let currentReviewApplication = null;
+        
+        // Demo credentials
+        const demoCredentials = {
+            admin: { email: 'admin@sswcoe.edu.in', password: 'sswcoe123', name: 'Admin User' },
+            student: { email: 'student@test.com', password: 'student123', name: 'Student' }
+        };
+        
+        // Initialize the application
+        function init() {
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Show login page by default
+            showPage('login');
+            
+            // Initialize with some sample applications for demo
+            initializeSampleApplications();
+            
+            // Add demo student to registered users
+            registeredUsers.push({
+                name: 'Student',
+                email: 'student@test.com',
+                password: 'student123'
+            });
+        }
+        
+        function setupEventListeners() {
+            // Login/Signup tabs
+            studentTab.addEventListener('click', () => switchTab('student'));
+            adminTab.addEventListener('click', () => switchTab('admin'));
+            
+            // Login/Signup navigation
+            loginBtn.addEventListener('click', handleLogin);
+            signupLink.addEventListener('click', () => showPage('signup'));
+            loginLink.addEventListener('click', () => showPage('login'));
+            signupBtn.addEventListener('click', handleSignup);
+            trackApplicationLink.addEventListener('click', () => showPage('track-application'));
+            quickTrackLink.addEventListener('click', () => showPage('track-application'));
+            navTrack.addEventListener('click', () => showPage('track-application'));
+            
+            // Navigation
+            navHome.addEventListener('click', () => showPage('login'));
+            navDashboard.addEventListener('click', () => showPage('student-dashboard'));
+            navAdmin.addEventListener('click', () => showPage('admin-dashboard'));
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Application flow
+            startApplicationBtn.addEventListener('click', () => showPage('application-form'));
+            backToDashboardBtn.addEventListener('click', () => {
+                showPage('student-dashboard');
+                updateStudentApplicationStatus();
+            });
+            trackNowBtn.addEventListener('click', () => showPage('track-application'));
+            backToAdminBtn.addEventListener('click', () => showPage('admin-dashboard'));
+            
+            // Track application
+            trackAppBtn.addEventListener('click', trackApplication);
+            
+            // Form navigation
+            document.getElementById('next-dept').addEventListener('click', () => navigateForm(1));
+            document.getElementById('next-personal').addEventListener('click', () => navigateForm(2));
+            document.getElementById('next-category').addEventListener('click', () => navigateForm(3));
+            document.getElementById('next-bank').addEventListener('click', () => navigateForm(4));
+            document.getElementById('next-guardian').addEventListener('click', () => navigateForm(5));
+            document.getElementById('next-docs').addEventListener('click', () => navigateForm(6));
+            
+            document.getElementById('prev-personal').addEventListener('click', () => navigateForm(0));
+            document.getElementById('prev-category').addEventListener('click', () => navigateForm(1));
+            document.getElementById('prev-bank').addEventListener('click', () => navigateForm(2));
+            document.getElementById('prev-guardian').addEventListener('click', () => navigateForm(3));
+            document.getElementById('prev-docs').addEventListener('click', () => navigateForm(4));
+            document.getElementById('prev-review').addEventListener('click', () => navigateForm(5));
+            
+            // Form submission
+            submitApplicationBtn.addEventListener('click', handleApplicationSubmit);
+            
+            // Admin review actions
+            acceptApplicationBtn.addEventListener('click', () => updateApplicationStatusFromReview('accepted'));
+            rejectApplicationBtn.addEventListener('click', () => updateApplicationStatusFromReview('rejected'));
+            sendbackApplicationBtn.addEventListener('click', () => updateApplicationStatusFromReview('sentback'));
+            
+            // Modal events
+            closeModalBtn.addEventListener('click', closeModal);
+            cancelStatusBtn.addEventListener('click', closeModal);
+            updateStatusBtn.addEventListener('click', updateApplicationStatus);
+        }
+        
+        function switchTab(tab) {
+            // Update active tab
+            studentTab.classList.toggle('active', tab === 'student');
+            adminTab.classList.toggle('active', tab === 'admin');
+            
+            // Update placeholder based on tab
+            const emailInput = document.getElementById('login-email');
+            if (tab === 'student') {
+                emailInput.placeholder = 'student@example.com';
+            } else {
+                emailInput.placeholder = 'admin@sswcoe.edu.in';
+            }
+        }
+        
+        function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const isStudentTab = studentTab.classList.contains('active');
+            
+            // Demo authentication
+            if (isStudentTab) {
+                // Check if user exists in registered users
+                const user = registeredUsers.find(u => u.email === email && u.password === password);
+                if (user || (email === demoCredentials.student.email && password === demoCredentials.student.password)) {
+                    currentUser = user || demoCredentials.student;
+                    userType = 'student';
+                    showPage('student-dashboard');
+                    updateUserInfo();
+                    updateStudentApplicationStatus();
+                } else {
+                    alert('Invalid student credentials. Please sign up first or use: student@test.com / student123');
+                }
+            } else {
+                if (email === demoCredentials.admin.email && password === demoCredentials.admin.password) {
+                    currentUser = demoCredentials.admin;
+                    userType = 'admin';
+                    showPage('admin-dashboard');
+                    updateUserInfo();
+                    updateAdminDashboard();
+                } else {
+                    alert('Invalid admin credentials. Use: admin@sswcoe.edu.in / sswcoe123');
+                }
+            }
+        }
+        
+        function handleSignup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            if (name && email && password) {
+                // Check if user already exists
+                const existingUser = registeredUsers.find(u => u.email === email);
+                if (existingUser) {
+                    alert('User with this email already exists. Please login.');
+                    return;
+                }
+                
+                // Add new user
+                registeredUsers.push({
+                    name: name,
+                    email: email,
+                    password: password
+                });
+                
+                alert('Account created successfully! You can now login.');
+                showPage('login');
+            } else {
+                alert('Please fill all fields');
+            }
+        }
+        
+        function handleLogout() {
+            currentUser = null;
+            userType = null;
+            showPage('login');
+            updateUserInfo();
+        }
+        
+        function showPage(page) {
+            // Hide all pages
+            loginPage.classList.add('hidden');
+            signupPage.classList.add('hidden');
+            studentDashboard.classList.add('hidden');
+            adminDashboard.classList.add('hidden');
+            applicationForm.classList.add('hidden');
+            applicationSuccess.classList.add('hidden');
+            trackApplicationPage.classList.add('hidden');
+            adminReviewForm.classList.add('hidden');
+            
+            // Show requested page
+            switch(page) {
+                case 'login':
+                    loginPage.classList.remove('hidden');
+                    break;
+                case 'signup':
+                    signupPage.classList.remove('hidden');
+                    break;
+                case 'student-dashboard':
+                    studentDashboard.classList.remove('hidden');
+                    updateStudentApplicationStatus();
+                    break;
+                case 'admin-dashboard':
+                    adminDashboard.classList.remove('hidden');
+                    updateAdminDashboard();
+                    break;
+                case 'application-form':
+                    applicationForm.classList.remove('hidden');
+                    resetForm();
+                    break;
+                case 'application-success':
+                    applicationSuccess.classList.remove('hidden');
+                    break;
+                case 'track-application':
+                    trackApplicationPage.classList.remove('hidden');
+                    trackedApplication.classList.add('hidden');
+                    noTrackedApplication.classList.add('hidden');
+                    break;
+                case 'admin-review':
+                    adminReviewForm.classList.remove('hidden');
+                    break;
+            }
+        }
+        
+        function updateUserInfo() {
+            if (currentUser) {
+                userName.textContent = currentUser.name;
+                userName.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+                navTrack.classList.remove('hidden');
+                
+                if (userType === 'student') {
+                    navDashboard.classList.remove('hidden');
+                    document.getElementById('student-name').textContent = currentUser.name;
+                } else {
+                    navAdmin.classList.remove('hidden');
+                }
+            } else {
+                userName.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+                navDashboard.classList.add('hidden');
+                navAdmin.classList.add('hidden');
+                navTrack.classList.add('hidden');
+            }
+        }
+        
+        function navigateForm(step) {
+            // Update current step
+            currentStep = step;
+            
+            // Hide all form sections
+            formSections.forEach(section => section.classList.remove('active'));
+            
+            // Show current section
+            formSections[step].classList.add('active');
+            
+            // Update steps visualization
+            steps.forEach((stepEl, index) => {
+                if (index < step) {
+                    stepEl.classList.add('completed');
+                    stepEl.classList.remove('active');
+                } else if (index === step) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('completed');
+                } else {
+                    stepEl.classList.remove('active', 'completed');
+                }
+            });
+            
+            // If we're on the review page, populate review data
+            if (step === 6) {
+                populateReviewData();
+            }
+        }
+        
+        function populateReviewData() {
+            // Get values from form fields
+            const departmentMap = {
+                'cse': 'Computer Science Engineering',
+                'cse-aids': 'CSE (AI & DS)',
+                'entc': 'EnTC',
+                'ece': 'ECE',
+                'electrical': 'Electrical'
+            };
+            
+            const yearMap = {
+                'fy': 'First Year',
+                'sy': 'Second Year',
+                'ty': 'Third Year',
+                'final': 'Final Year'
+            };
+            
+            const admissionTypeMap = {
+                'acap': 'ACAP',
+                'cap': 'CAP',
+                'tfws': 'TFWS'
+            };
+            
+            reviewDept.textContent = departmentMap[document.getElementById('department').value] || 'Not specified';
+            reviewYear.textContent = yearMap[document.getElementById('year').value] || 'Not specified';
+            reviewAdmissionType.textContent = admissionTypeMap[document.getElementById('admission-type').value] || 'Not specified';
+            reviewName.textContent = document.getElementById('full-name').value || 'Not specified';
+            reviewEmail.textContent = document.getElementById('email').value || 'Not specified';
+            reviewDob.textContent = document.getElementById('dob').value || 'Not specified';
+            
+            const categoryOpen = document.getElementById('category-open').checked;
+            const categoryReserved = document.getElementById('category-reserved').checked;
+            reviewCategory.textContent = categoryOpen ? 'Open' : (categoryReserved ? 'Reserved' : 'Not specified');
+            
+            reviewBank.textContent = document.getElementById('bank-name').value || 'Not specified';
+            reviewAccount.textContent = document.getElementById('account-no').value || 'Not specified';
+        }
+        
+        function resetForm() {
+            // Reset form to first step
+            currentStep = 0;
+            navigateForm(0);
+            
+            // Clear form fields
+            document.getElementById('department').value = '';
+            document.getElementById('year').value = '';
+            document.getElementById('admission-type').value = '';
+            document.getElementById('full-name').value = '';
+            document.getElementById('father-name').value = '';
+            document.getElementById('mother-name').value = '';
+            document.getElementById('dob').value = '';
+            document.getElementById('birth-place').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('aadhar').value = '';
+            document.getElementById('permanent-address').value = '';
+            document.getElementById('pincode').value = '';
+            document.getElementById('correspondence-address').value = '';
+            document.getElementById('corr-pincode').value = '';
+            document.getElementById('domicile-state').value = '';
+            document.getElementById('category-open').checked = false;
+            document.getElementById('category-reserved').checked = false;
+            document.getElementById('religion').value = '';
+            document.getElementById('caste').value = '';
+            document.getElementById('sub-caste').value = '';
+            document.getElementById('account-holder').value = '';
+            document.getElementById('bank-name').value = '';
+            document.getElementById('branch').value = '';
+            document.getElementById('ifsc').value = '';
+            document.getElementById('account-no').value = '';
+            document.getElementById('guardian-name').value = '';
+            document.getElementById('guardian-relation').value = '';
+            document.getElementById('guardian-occupation').value = '';
+            document.getElementById('guardian-income').value = '';
+            document.getElementById('guardian-contact').value = '';
+            document.getElementById('guardian-email').value = '';
+            
+            // Reset file inputs
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => input.value = '');
+        }
+        
+        function handleApplicationSubmit() {
+            // Generate a random application ID
+            const appId = 'APP-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Create application object with all form data
+            const application = {
+                id: appId,
+                name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                department: document.getElementById('department').value,
+                year: document.getElementById('year').value,
+                admissionType: document.getElementById('admission-type').value,
+                date: new Date().toLocaleDateString(),
+                status: 'pending',
+                // Store all form data for admin review
+                formData: {
+                    personal: {
+                        fullName: document.getElementById('full-name').value,
+                        fatherName: document.getElementById('father-name').value,
+                        motherName: document.getElementById('mother-name').value,
+                        dob: document.getElementById('dob').value,
+                        birthPlace: document.getElementById('birth-place').value,
+                        email: document.getElementById('email').value,
+                        aadhar: document.getElementById('aadhar').value,
+                        permanentAddress: document.getElementById('permanent-address').value,
+                        pincode: document.getElementById('pincode').value,
+                        correspondenceAddress: document.getElementById('correspondence-address').value,
+                        corrPincode: document.getElementById('corr-pincode').value
+                    },
+                    category: {
+                        domicileState: document.getElementById('domicile-state').value,
+                        category: document.getElementById('category-open').checked ? 'Open' : 
+                                 (document.getElementById('category-reserved').checked ? 'Reserved' : ''),
+                        religion: document.getElementById('religion').value,
+                        caste: document.getElementById('caste').value,
+                        subCaste: document.getElementById('sub-caste').value
+                    },
+                    bank: {
+                        accountHolder: document.getElementById('account-holder').value,
+                        bankName: document.getElementById('bank-name').value,
+                        branch: document.getElementById('branch').value,
+                        ifsc: document.getElementById('ifsc').value,
+                        accountNo: document.getElementById('account-no').value
+                    },
+                    guardian: {
+                        name: document.getElementById('guardian-name').value,
+                        relation: document.getElementById('guardian-relation').value,
+                        occupation: document.getElementById('guardian-occupation').value,
+                        income: document.getElementById('guardian-income').value,
+                        contact: document.getElementById('guardian-contact').value,
+                        email: document.getElementById('guardian-email').value
+                    }
+                },
+                statusHistory: [
+                    {
+                        status: 'pending',
+                        date: new Date().toLocaleString(),
+                        comments: 'Application submitted'
+                    }
+                ]
+            };
+            
+            // Add to applications list
+            currentApplications.push(application);
+            
+            // Update student dashboard
+            document.getElementById('student-app-id').textContent = appId;
+            document.getElementById('success-app-id').textContent = appId;
+            
+            // Show success page
+            showPage('application-success');
+        }
+        
+        function initializeSampleApplications() {
+            // Add some sample applications for demo
+            currentApplications = [
+                {
+                    id: 'APP-1001',
+                    name: 'Priya Sharma',
+                    email: 'priya@example.com',
+                    department: 'cse',
+                    year: 'fy',
+                    admissionType: 'acap',
+                    date: '15/12/2025',
+                    status: 'pending',
+                    formData: {
+                        personal: {
+                            fullName: 'Priya Sharma',
+                            fatherName: 'Rajesh Sharma',
+                            motherName: 'Sunita Sharma',
+                            dob: '2005-03-15',
+                            birthPlace: 'Solapur',
+                            email: 'priya@example.com',
+                            aadhar: '1234-5678-9012',
+                            permanentAddress: '123 Main Street, Solapur',
+                            pincode: '413001',
+                            correspondenceAddress: '123 Main Street, Solapur',
+                            corrPincode: '413001'
+                        },
+                        category: {
+                            domicileState: 'Maharashtra',
+                            category: 'Open',
+                            religion: 'Hindu',
+                            caste: 'General',
+                            subCaste: ''
+                        },
+                        bank: {
+                            accountHolder: 'Priya Sharma',
+                            bankName: 'State Bank of India',
+                            branch: 'Solapur Main Branch',
+                            ifsc: 'SBIN0000123',
+                            accountNo: '12345678901'
+                        },
+                        guardian: {
+                            name: 'Rajesh Sharma',
+                            relation: 'Father',
+                            occupation: 'Business',
+                            income: '800000',
+                            contact: '+919876543210',
+                            email: 'rajesh@example.com'
+                        }
+                    },
+                    statusHistory: [
+                        {
+                            status: 'pending',
+                            date: '15/12/2025 10:30 AM',
+                            comments: 'Application submitted'
+                        }
+                    ]
+                },
+                {
+                    id: 'APP-1002',
+                    name: 'Anjali Patel',
+                    email: 'anjali@example.com',
+                    department: 'cse-aids',
+                    year: 'sy',
+                    admissionType: 'cap',
+                    date: '10/12/2025',
+                    status: 'accepted',
+                    formData: {
+                        personal: {
+                            fullName: 'Anjali Patel',
+                            fatherName: 'Sanjay Patel',
+                            motherName: 'Meera Patel',
+                            dob: '2004-07-22',
+                            birthPlace: 'Pune',
+                            email: 'anjali@example.com',
+                            aadhar: '2345-6789-0123',
+                            permanentAddress: '456 Oak Avenue, Pune',
+                            pincode: '411001',
+                            correspondenceAddress: '456 Oak Avenue, Pune',
+                            corrPincode: '411001'
+                        },
+                        category: {
+                            domicileState: 'Maharashtra',
+                            category: 'Reserved',
+                            religion: 'Hindu',
+                            caste: 'OBC',
+                            subCaste: 'Kunbi'
+                        },
+                        bank: {
+                            accountHolder: 'Anjali Patel',
+                            bankName: 'HDFC Bank',
+                            branch: 'Pune Branch',
+                            ifsc: 'HDFC0000456',
+                            accountNo: '23456789012'
+                        },
+                        guardian: {
+                            name: 'Sanjay Patel',
+                            relation: 'Father',
+                            occupation: 'Engineer',
+                            income: '1200000',
+                            contact: '+919876543211',
+                            email: 'sanjay@example.com'
+                        }
+                    },
+                    statusHistory: [
+                        {
+                            status: 'pending',
+                            date: '10/12/2025 09:15 AM',
+                            comments: 'Application submitted'
+                        },
+                        {
+                            status: 'accepted',
+                            date: '12/12/2025 02:45 PM',
+                            comments: 'Application accepted. Welcome to SSWCE!'
+                        }
+                    ]
+                }
+            ];
+        }
+        
+        function updateStudentApplicationStatus() {
+            if (!currentUser) return;
+            
+            // Find applications for current student
+            const studentApplications = currentApplications.filter(app => app.email === currentUser.email);
+            
+            if (studentApplications.length === 0) {
+                // No applications found
+                noApplication.classList.remove('hidden');
+                applicationStatus.classList.add('hidden');
+                applicationHistory.classList.add('hidden');
+            } else {
+                // Show applications
+                noApplication.classList.add('hidden');
+                applicationStatus.classList.remove('hidden');
+                applicationHistory.classList.remove('hidden');
+                
+                // Update application list
+                updateApplicationList(studentApplications);
+                
+                // Show latest application details
+                const latestApp = studentApplications[studentApplications.length - 1];
+                updateApplicationDetails(latestApp);
+            }
+        }
+        
+        function updateApplicationList(applications) {
+            applicationsList.innerHTML = '';
+            
+            const departmentMap = {
+                'cse': 'Computer Science Engineering',
+                'cse-aids': 'CSE (AI & DS)',
+                'entc': 'EnTC',
+                'ece': 'ECE',
+                'electrical': 'Electrical'
+            };
+            
+            const statusMap = {
+                'pending': { text: 'PENDING', class: 'status-pending' },
+                'accepted': { text: 'ACCEPTED', class: 'status-accepted' },
+                'rejected': { text: 'REJECTED', class: 'status-rejected' },
+                'sentback': { text: 'SEND BACK', class: 'status-sentback' }
+            };
+            
+            applications.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.className = `application-card ${app.status}`;
+                
+                appCard.innerHTML = `
+                    <div class="app-card-header">
+                        <div class="app-card-id">${app.id}</div>
+                        <span class="status ${statusMap[app.status].class}">${statusMap[app.status].text}</span>
+                    </div>
+                    <div class="app-card-details">
+                        <div><strong>Department:</strong> ${departmentMap[app.department] || app.department}</div>
+                        <div><strong>Admission Type:</strong> ${app.admissionType}</div>
+                        <div><strong>Submitted:</strong> ${app.date}</div>
+                        <div><strong>Year:</strong> ${app.year}</div>
+                    </div>
+                `;
+                
+                applicationsList.appendChild(appCard);
+            });
+        }
+        
+        function updateApplicationDetails(app) {
+            const departmentMap = {
+                'cse': 'Computer Science Engineering',
+                'cse-aids': 'CSE (AI & DS)',
+                'entc': 'EnTC',
+                'ece': 'ECE',
+                'electrical': 'Electrical'
+            };
+            
+            const yearMap = {
+                'fy': 'First Year',
+                'sy': 'Second Year',
+                'ty': 'Third Year',
+                'final': 'Final Year'
+            };
+            
+            const admissionTypeMap = {
+                'acap': 'ACAP',
+                'cap': 'CAP',
+                'tfws': 'TFWS'
+            };
+            
+            const statusMap = {
+                'pending': { text: 'PENDING', class: 'status-pending' },
+                'accepted': { text: 'ACCEPTED', class: 'status-accepted' },
+                'rejected': { text: 'REJECTED', class: 'status-rejected' },
+                'sentback': { text: 'SEND BACK', class: 'status-sentback' }
+            };
+            
+            document.getElementById('student-app-id').textContent = app.id;
+            document.getElementById('application-dept').textContent = departmentMap[app.department] || app.department;
+            document.getElementById('application-year').textContent = yearMap[app.year] || app.year;
+            document.getElementById('application-admission-type').textContent = admissionTypeMap[app.admissionType] || app.admissionType;
+            document.getElementById('application-date').textContent = app.date;
+            
+            const statusElement = document.getElementById('application-status-text');
+            statusElement.textContent = statusMap[app.status].text;
+            statusElement.className = 'status ' + statusMap[app.status].class;
+            
+            // Update status history
+            updateStatusHistory(app.statusHistory, 'status-history-items');
+        }
+        
+        function updateStatusHistory(history, containerId) {
+            const historyContainer = document.getElementById(containerId);
+            historyContainer.innerHTML = '';
+            
+            if (!history || history.length === 0) {
+                historyContainer.innerHTML = '<p>No status history available</p>';
+                return;
+            }
+            
+            // Sort history by date (newest first)
+            const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedHistory.forEach(item => {
+                const statusItem = document.createElement('div');
+                statusItem.className = `status-item ${item.status}`;
+                
+                const statusMap = {
+                    'pending': 'Pending',
+                    'accepted': 'Accepted',
+                    'rejected': 'Rejected',
+                    'sentback': 'Sent Back'
+                };
+                
+                statusItem.innerHTML = `
+                    <strong>${statusMap[item.status] || item.status}</strong>
+                    <div style="font-size: 0.8rem; color: #666;">${item.date}</div>
+                    ${item.comments ? `<div style="margin-top: 5px;">${item.comments}</div>` : ''}
+                `;
+                
+                historyContainer.appendChild(statusItem);
+            });
+        }
+        
+        function trackApplication() {
+            const appId = trackAppId.value.trim().toUpperCase();
+            
+            if (!appId) {
+                alert('Please enter an Application ID');
+                return;
+            }
+            
+            // Find the application
+            const application = currentApplications.find(app => app.id === appId);
+            
+            if (application) {
+                // Show application details
+                trackedApplication.classList.remove('hidden');
+                noTrackedApplication.classList.add('hidden');
+                
+                // Update tracked application details
+                const departmentMap = {
+                    'cse': 'Computer Science Engineering',
+                    'cse-aids': 'CSE (AI & DS)',
+                    'entc': 'EnTC',
+                    'ece': 'ECE',
+                    'electrical': 'Electrical'
+                };
+                
+                const yearMap = {
+                    'fy': 'First Year',
+                    'sy': 'Second Year',
+                    'ty': 'Third Year',
+                    'final': 'Final Year'
+                };
+                
+                const admissionTypeMap = {
+                    'acap': 'ACAP',
+                    'cap': 'CAP',
+                    'tfws': 'TFWS'
+                };
+                
+                const statusMap = {
+                    'pending': { text: 'PENDING', class: 'status-pending' },
+                    'accepted': { text: 'ACCEPTED', class: 'status-accepted' },
+                    'rejected': { text: 'REJECTED', class: 'status-rejected' },
+                    'sentback': { text: 'SEND BACK', class: 'status-sentback' }
+                };
+                
+                document.getElementById('tracked-app-id').textContent = application.id;
+                document.getElementById('tracked-app-name').textContent = application.name;
+                document.getElementById('tracked-app-dept').textContent = departmentMap[application.department] || application.department;
+                document.getElementById('tracked-app-admission-type').textContent = admissionTypeMap[application.admissionType] || application.admissionType;
+                document.getElementById('tracked-app-date').textContent = application.date;
+                
+                const statusElement = document.getElementById('tracked-app-status');
+                statusElement.textContent = statusMap[application.status].text;
+                statusElement.className = 'status ' + statusMap[application.status].class;
+                
+                // Update status history
+                updateStatusHistory(application.statusHistory, 'tracked-status-history');
+            } else {
+                // Application not found
+                trackedApplication.classList.add('hidden');
+                noTrackedApplication.classList.remove('hidden');
+            }
+        }
+        
+        function updateAdminDashboard() {
+            // Update statistics
+            const total = currentApplications.length;
+            const pending = currentApplications.filter(app => app.status === 'pending').length;
+            const accepted = currentApplications.filter(app => app.status === 'accepted').length;
+            const rejected = currentApplications.filter(app => app.status === 'rejected').length;
+            
+            totalFormsEl.textContent = total;
+            pendingFormsEl.textContent = pending;
+            acceptedFormsEl.textContent = accepted;
+            rejectedFormsEl.textContent = rejected;
+            
+            // Update applications table
+            applicationsTableBody.innerHTML = '';
+            
+            const departmentMap = {
+                'cse': 'Computer Science Engineering',
+                'cse-aids': 'CSE (AI & DS)',
+                'entc': 'EnTC',
+                'ece': 'ECE',
+                'electrical': 'Electrical'
+            };
+            
+            const yearMap = {
+                'fy': 'First Year',
+                'sy': 'Second Year',
+                'ty': 'Third Year',
+                'final': 'Final Year'
+            };
+            
+            const admissionTypeMap = {
+                'acap': 'ACAP',
+                'cap': 'CAP',
+                'tfws': 'TFWS'
+            };
+            
+            const statusMap = {
+                'pending': { text: 'PENDING', class: 'status-pending' },
+                'accepted': { text: 'ACCEPTED', class: 'status-accepted' },
+                'rejected': { text: 'REJECTED', class: 'status-rejected' },
+                'sentback': { text: 'SEND BACK', class: 'status-sentback' }
+            };
+            
+            currentApplications.forEach(app => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${app.id}</td>
+                    <td><strong>${app.name}</strong></td>
+                    <td>${departmentMap[app.department] || app.department}</td>
+                    <td>${admissionTypeMap[app.admissionType] || app.admissionType}</td>
+                    <td>${yearMap[app.year] || app.year}</td>
+                    <td>${app.date}</td>
+                    <td><span class="status ${statusMap[app.status].class}">${statusMap[app.status].text}</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-success update-status-btn" data-id="${app.id}">Accept</button>
+                        <button class="btn btn-danger update-status-btn" data-id="${app.id}">Reject</button>
+                        <button class="btn btn-warning update-status-btn" data-id="${app.id}">Send Back</button>
+                        <button class="btn review-app-btn" data-id="${app.id}">Review</button>
+                    </td>
+                `;
+                
+                applicationsTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to status buttons
+            document.querySelectorAll('.update-status-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const appId = this.getAttribute('data-id');
+                    const action = this.textContent.toLowerCase();
+                    
+                    openStatusModal(appId, action);
+                });
+            });
+            
+            // Add event listeners to review buttons
+            document.querySelectorAll('.review-app-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const appId = this.getAttribute('data-id');
+                    openAdminReview(appId);
+                });
+            });
+        }
+        
+        function openAdminReview(appId) {
+            // Find the application
+            const application = currentApplications.find(app => app.id === appId);
+            
+            if (application) {
+                currentReviewApplication = application;
+                
+                // Populate review sections
+                populateAdminReview(application);
+                
+                // Show admin review form
+                showPage('admin-review');
+            }
+        }
+        
+        function populateAdminReview(application) {
+            const departmentMap = {
+                'cse': 'Computer Science Engineering',
+                'cse-aids': 'CSE (AI & DS)',
+                'entc': 'EnTC',
+                'ece': 'ECE',
+                'electrical': 'Electrical'
+            };
+            
+            const yearMap = {
+                'fy': 'First Year',
+                'sy': 'Second Year',
+                'ty': 'Third Year',
+                'final': 'Final Year'
+            };
+            
+            const admissionTypeMap = {
+                'acap': 'ACAP',
+                'cap': 'CAP',
+                'tfws': 'TFWS'
+            };
+            
+            // Application Information
+            reviewAppInfo.innerHTML = `
+                <p><strong>Application ID:</strong> ${application.id}</p>
+                <p><strong>Student Name:</strong> ${application.name}</p>
+                <p><strong>Email:</strong> ${application.email}</p>
+                <p><strong>Submitted Date:</strong> ${application.date}</p>
+                <p><strong>Current Status:</strong> ${application.status}</p>
+            `;
+            
+            // Academic Details
+            reviewAcademic.innerHTML = `
+                <p><strong>Department:</strong> ${departmentMap[application.department] || application.department}</p>
+                <p><strong>Year:</strong> ${yearMap[application.year] || application.year}</p>
+                <p><strong>Admission Type:</strong> ${admissionTypeMap[application.admissionType] || application.admissionType}</p>
+            `;
+            
+            // Personal Information
+            const personal = application.formData.personal;
+            reviewPersonal.innerHTML = `
+                <p><strong>Full Name:</strong> ${personal.fullName}</p>
+                <p><strong>Father's Name:</strong> ${personal.fatherName}</p>
+                <p><strong>Mother's Name:</strong> ${personal.motherName}</p>
+                <p><strong>Date of Birth:</strong> ${personal.dob}</p>
+                <p><strong>Birth Place:</strong> ${personal.birthPlace}</p>
+                <p><strong>Email:</strong> ${personal.email}</p>
+                <p><strong>Aadhar No:</strong> ${personal.aadhar}</p>
+            `;
+            
+            // Address Details
+            reviewAddress.innerHTML = `
+                <p><strong>Permanent Address:</strong> ${personal.permanentAddress}</p>
+                <p><strong>Pincode:</strong> ${personal.pincode}</p>
+                <p><strong>Correspondence Address:</strong> ${personal.correspondenceAddress}</p>
+                <p><strong>Pincode:</strong> ${personal.corrPincode}</p>
+            `;
+            
+            // Category & Domicile
+            const category = application.formData.category;
+            reviewCategoryDomicile.innerHTML = `
+                <p><strong>Domicile State:</strong> ${category.domicileState}</p>
+                <p><strong>Category:</strong> ${category.category}</p>
+                <p><strong>Religion:</strong> ${category.religion}</p>
+                <p><strong>Caste:</strong> ${category.caste}</p>
+                <p><strong>Sub-Caste:</strong> ${category.subCaste || 'Not specified'}</p>
+            `;
+            
+            // Bank Details
+            const bank = application.formData.bank;
+            reviewBankDetails.innerHTML = `
+                <p><strong>Account Holder:</strong> ${bank.accountHolder}</p>
+                <p><strong>Bank Name:</strong> ${bank.bankName}</p>
+                <p><strong>Branch:</strong> ${bank.branch}</p>
+                <p><strong>IFSC Code:</strong> ${bank.ifsc}</p>
+                <p><strong>Account No:</strong> ${bank.accountNo}</p>
+            `;
+            
+            // Guardian Information
+            const guardian = application.formData.guardian;
+            reviewGuardian.innerHTML = `
+                <p><strong>Guardian Name:</strong> ${guardian.name}</p>
+                <p><strong>Relation:</strong> ${guardian.relation}</p>
+                <p><strong>Occupation:</strong> ${guardian.occupation}</p>
+                <p><strong>Annual Income:</strong> ₹${guardian.income}</p>
+                <p><strong>Contact No:</strong> ${guardian.contact}</p>
+                <p><strong>Email:</strong> ${guardian.email}</p>
+            `;
+        }
+        
+        function updateApplicationStatusFromReview(status) {
+            if (!currentReviewApplication) return;
+            
+            const comments = prompt(`Enter comments for ${status} status:`);
+            
+            // Update application status
+            const appIndex = currentApplications.findIndex(app => app.id === currentReviewApplication.id);
+            if (appIndex !== -1) {
+                currentApplications[appIndex].status = status;
+                
+                // Add to status history
+                currentApplications[appIndex].statusHistory.push({
+                    status: status,
+                    date: new Date().toLocaleString(),
+                    comments: comments || `Application ${status} by admin`
+                });
+                
+                alert(`Application ${currentReviewApplication.id} has been ${status}`);
+                
+                // Return to admin dashboard
+                showPage('admin-dashboard');
+                updateAdminDashboard();
+            }
+        }
+        
+        function openStatusModal(appId, action) {
+            currentApplicationId = appId;
+            
+            // Set the status based on the button clicked
+            if (action === 'accept') {
+                statusSelect.value = 'accepted';
+            } else if (action === 'reject') {
+                statusSelect.value = 'rejected';
+            } else if (action === 'send back') {
+                statusSelect.value = 'sentback';
+            }
+            
+            // Clear comments
+            statusComments.value = '';
+            
+            // Show modal
+            statusModal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            statusModal.style.display = 'none';
+            currentApplicationId = null;
+        }
+        
+        function updateApplicationStatus() {
+            if (!currentApplicationId) return;
+            
+            const newStatus = statusSelect.value;
+            const comments = statusComments.value;
+            
+            // Find and update the application
+            const appIndex = currentApplications.findIndex(app => app.id === currentApplicationId);
+            if (appIndex !== -1) {
+                currentApplications[appIndex].status = newStatus;
+                
+                // Add to status history
+                currentApplications[appIndex].statusHistory.push({
+                    status: newStatus,
+                    date: new Date().toLocaleString(),
+                    comments: comments || 'Status updated by admin'
+                });
+                
+                // Update the dashboard
+                updateAdminDashboard();
+                
+                // Close modal
+                closeModal();
+                
+                alert(`Application ${currentApplicationId} status updated to ${newStatus}`);
+            }
+        }
+        
+        // Initialize the application when the page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
